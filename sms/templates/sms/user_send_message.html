@@ -1,0 +1,36 @@
+{% extends 'sms/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>Slanje SMS poruka</h1>
+            <p class="lead">
+                Upiši broj na koji šalješ i poruku koju šalje. Stisni 'Šalji'. Koliko teško može biti?
+                <a class="btn btn-primary" href="{% url 'message-list' %}">Poslane poruke</a>
+            </p>
+            <form role="form" action="" method="post">
+                <div class="form-group">
+                    <label for="sender">Tko šalje?</label>
+                    <input type="text" class="form-control" id="id_sender" name="sender" placeholder="Upiši svoje ime" value="{{ form.sender.value|default_if_none:"" }}">
+                    {{ form.sender.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="recipient">Kome šalješ?</label>
+                    <input type="text" class="form-control" id="id_recipient" name="recipient" placeholder="Upiši broj" value="{{ form.recipient.value|default_if_none:"" }}">
+                    {{ form.recipient.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="message">Poruka</label>
+                    <textarea class="form-control" id="id_message" name="message" placeholder="Poruka duzine do 160 znakova" rows="6">{{ form.message.value|default_if_none:"" }}</textarea>
+                    {{ form.message.errors }}
+                </div>
+                <input type="hidden" id="id_user" name="user" value="{{ request.user.id }}" />
+                <button type="submit" class="btn btn-primary">Šalji</button>
+            </form>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+{% endblock %}
+

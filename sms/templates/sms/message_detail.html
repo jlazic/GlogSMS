@@ -1,0 +1,18 @@
+{% extends 'sms/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>ID poruke: {{ object.id }}</h1>
+            <p>Tko šalje: {{ object.sender }}</p>
+            <p>Tko prima: {{ object.recipient }}</p>
+            <p>Poruka: {{ object.message }}</p>
+            <p>Status: {{ object.status }}</p>
+            <p>Poslana: {{ object.added }}</p>
+            <p>Zadnja promjena: {{ object.updated }}</p>
+            <a type="button" class="btn btn-primary" href="{% url 'message-list' %}">Nazad na listu poruka</a>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'sms/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+    <h1>Popis poslanih poruka za korisnika {{ request.user.username }}</h1>
+    <a class="btn btn-primary" href="/">Početak</a>
+        <div class="col-lg-12">
+        <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Šalje</th>
+                  <th>Prima</th>
+                  <th>Poruka</th>
+                  <th>Status</th>
+                  <th>Poslano</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for message in object_list %}
+                <tr>
+                  <td><a href="{% url 'message-detail' message.id %}">{{ message.id }}</a></td>
+                  <td>{{ message.sender }}</td>
+                  <td>{{ message.recipient }}</td>
+                  <td>{{ message.message }}</td>
+                  <td>{{ message.status }}</td>
+                  <td>{{ message.added }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+{% endblock %}
