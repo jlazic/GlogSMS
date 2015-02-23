@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from hashlib import sha1
 from django.core.validators import MinLengthValidator
 import re
+import json
 from django.core.urlresolvers import reverse
 from sms.helpers import ksort
 import hashlib, base64
@@ -79,6 +80,9 @@ class Message(models.Model):
             self.status = 'delivered'
             self.save()
         return self
+
+    def to_json(self):
+        return json.dumps({'id': self.id, 'to': self.phone_number(), 'message': self.message})
 
     def phone_number(self):
         """

@@ -3,9 +3,8 @@ __author__ = 'josip@lazic.info'
 
 import json
 from django.http import HttpResponse, HttpResponseNotAllowed
-from sms.models import Message, StatusLog, Phone
+from sms.models import StatusLog, Phone, Message
 from sms.forms import RequestForm
-from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from jsonview.decorators import json_view
@@ -46,9 +45,7 @@ class MessageDetail(DetailView):
         return super(MessageDetail, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super(MessageDetail, self).get_context_data(**kwargs)
-        # Add in the publisher
         context['request'] = self.request
         return context
 
@@ -64,9 +61,7 @@ class MessageList(ListView):
         return super(MessageList, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super(MessageList, self).get_context_data(**kwargs)
-        # Add in the publisher
         context['request'] = self.request
         return context
 

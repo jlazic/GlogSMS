@@ -162,6 +162,9 @@ REST_FRAMEWORK = {
 
 #SMS project related settings
 SMS_USE_AUTH = True #If true you must use passwords in phones
+SMS_AMQP_ENABLED = False
+#https://pika.readthedocs.org/en/latest/examples/using_urlparameters.html
+SMS_AMQP_URL = None
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
