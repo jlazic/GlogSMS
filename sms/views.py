@@ -74,6 +74,10 @@ def pool(request):
     :param request:
     :return:
     """
+
+    if request.method == 'HEAD':
+        return HttpResponse('OK')
+
     if request.method != 'POST':
         return HttpResponseNotAllowed('Only POST requests allowed here')
 

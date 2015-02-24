@@ -82,7 +82,8 @@ class Message(models.Model):
         return self
 
     def to_json(self):
-        return json.dumps({'id': self.id, 'to': self.phone_number(), 'message': self.message})
+        event = {'event': 'send', 'messages': [{'id': self.id, 'to': self.phone_number(), 'message': self.message}]}
+        return json.dumps(event)
 
     def phone_number(self):
         """
