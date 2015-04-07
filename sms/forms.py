@@ -14,3 +14,4 @@ class MessageForm(ModelForm):
 class RequestForm(ModelForm):
     class Meta:
         model = Request
+        exclude = ['added', 'updated']
