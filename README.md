@@ -1,4 +1,4 @@
-django-sms-gateway
+glog-sms-gateway
 ==================
 
 #About

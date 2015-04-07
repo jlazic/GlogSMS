@@ -4,7 +4,7 @@ django-braces==1.4.0
 django-cors-headers==1.0.0
 django-extensions==1.5.0
 django-jsonview==0.4.3
-djangorestframework==3.0.5
+djangorestframework==3.1
 gunicorn==19.2.1
 jdcal==1.0
 lxml==3.4.2
@@ -16,3 +16,4 @@ sqlparse==0.1.14
 defusedxml==0.4.1
 mailer==0.7
 pika==0.9.14
+celery==3.1.17

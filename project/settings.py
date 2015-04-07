@@ -167,8 +167,21 @@ SMS_AMQP_ENABLED = False
 SMS_AMQP_URL = None
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_URL = '/static/'
+
+BROKER_URL = 'amqp://guest:guest@localhost//'
+
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'add-every-30-seconds': {
+        'task': 'sms.tasks.add',
+        'schedule': timedelta(seconds=6),
+        'args': (16, 16)
+    },
+}
+
+CELERY_TIMEZONE = 'UTC'
 
 """
 Load settings from local_settings.py file. This will override any setting set above in this file.
@@ -180,6 +193,10 @@ except ImportError as e:
     pass
 
 if DEBUG:
+    # add django-debug-toolbar
+    INSTALLED_APPS = INSTALLED_APPS + (
+        'debug_toolbar',
+    )
     # make all loggers use the console.
     for logger in LOGGING['loggers']:
         LOGGING['loggers'][logger]['handlers'] = ['console']

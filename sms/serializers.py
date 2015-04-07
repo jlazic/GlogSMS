@@ -2,7 +2,6 @@
 __author__ = 'josip@lazic.info'
 
 from rest_framework import serializers
-
 from sms.models import Message
 
 
