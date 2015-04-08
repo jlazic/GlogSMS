@@ -171,7 +171,7 @@ class Phone(models.Model):
     serial = models.CharField(max_length=128)
     PIN = models.CharField(max_length=64)
     password = models.CharField(max_length=32)
-    ip = models.IPAddressField()
+    ip = models.GenericIPAddressField()
     is_active = models.BooleanField(default=True)
     added = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)

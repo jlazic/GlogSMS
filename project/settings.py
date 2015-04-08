@@ -41,8 +41,6 @@ ALLOWED_HOSTS = ['*']
 
 INTERNAL_IPS = ['127.0.0.1']
 
-TASTYPIE_DEFAULT_FORMATS = ['xml', 'json']
-
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
@@ -52,14 +50,13 @@ LOGOUT_URL = '/admin/logout'
 # Application definition
 
 INSTALLED_APPS = (
-    'django_extensions',
+    #'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'rest_framework',
     'reversion',
     'sms',
@@ -68,15 +65,14 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'django.contrib.auth.middleware.RemoteUserMiddleware',
-    'sms.auth.ApacheHeaderMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.RemoteUserBackend',
@@ -97,6 +93,24 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-request-signature'
 )
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 
 LOGGING = {
     'version': 1,
@@ -132,13 +146,9 @@ LOGGING = {
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/Zagreb'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 #Django REST Framework settings
@@ -154,12 +164,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
-
-#SMS project related settings
-SMS_USE_AUTH = True #If true you must use passwords in phones
-SMS_AMQP_ENABLED = False
-#https://pika.readthedocs.org/en/latest/examples/using_urlparameters.html
-SMS_AMQP_URL = None
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
@@ -192,6 +196,11 @@ if DEBUG:
     INSTALLED_APPS = INSTALLED_APPS + (
         'debug_toolbar',
     )
+
+    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
     # make all loggers use the console.
     for logger in LOGGING['loggers']:
         LOGGING['loggers'][logger]['handlers'] = ['console']
