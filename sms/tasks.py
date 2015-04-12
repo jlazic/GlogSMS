@@ -7,6 +7,7 @@ from celery import shared_task
 
 @shared_task
 def queue_message(message):
+    print "Sending... {}".format(message)
     parameters = pika.URLParameters(settings.SMS_AMQP_URL)
     connection = pika.BlockingConnection(parameters)
     channel = connection.channel()
