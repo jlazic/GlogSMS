@@ -1,12 +1,12 @@
 __author__ = 'josip.lazic'
 
-from celery import Celery
-from django.conf import settings
 import pika
+from django.conf import settings
+from __future__ import absolute_import
+from celery import shared_task
 
-app = Celery('tasks', broker=settings.SMS_CELERY_URL)
 
-@app.task()
+@shared_task
 def queue_message(message):
     parameters = pika.URLParameters(settings.SMS_AMQP_URL)
     connection = pika.BlockingConnection(parameters)
