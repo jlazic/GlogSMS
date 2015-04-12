@@ -7,8 +7,8 @@ from django.conf import settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 
 app = Celery('project',
-             broker=settings.SMS_CELERY_URL,
-             backend=settings.SMS_CELERY_URL,
+             broker=settings.BROKER_URL,
+             backend=settings.BROKER_URL,
              )
 
 

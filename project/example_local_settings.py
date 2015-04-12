@@ -8,7 +8,7 @@ settings = sys.modules['project.settings']
 DEBUG = True
 
 # Do you have celery installed? If you just want to test
-SMS_CELERY_URL = "amqp://guest:guest@localhost/sms"
+BROKER_URL = "amqp://guest:guest@localhost/sms"
 
 # Set to True if you have installed RabbitMQ, and you plan on using
 # AMQP. I highly recommend usage of AMQP. Read more in Github wiki.
