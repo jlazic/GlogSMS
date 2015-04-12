@@ -2,7 +2,7 @@
 NAME="sms"
 DJANGODIR=/home/django/sites/sms
 VIRTUALENVDIR=/home/django/.virtualenvs/sms
-BIND="127.0.0.1:8001" #Listen on localhost
+BIND="127.0.0.1:8000" #Listen on localhost
 USER=django
 GROUP=django
 NUM_WORKERS=3
