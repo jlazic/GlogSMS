@@ -1,8 +1,7 @@
-__author__ = 'josip.lazic'
+from __future__ import absolute_import
 
 import pika
 from django.conf import settings
-from __future__ import absolute_import
 from celery import shared_task
 
 
