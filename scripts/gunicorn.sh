@@ -1,7 +1,7 @@
 #!/bin/bash
 NAME="sms"
-DJANGODIR=/home/python/sms
-VIRTUALENVDIR=/home/python/virtualenvs/sms
+DJANGODIR=/home/django/sites/sms
+VIRTUALENVDIR=/home/django/.virtualenvs/sms
 BIND="127.0.0.1:8001" #Listen on localhost
 USER=django
 GROUP=django
@@ -17,7 +17,7 @@ source bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 
-# Start your Django Unicorn
+# Start your Gunicorn
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
 exec $VIRTUALENVDIR/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
