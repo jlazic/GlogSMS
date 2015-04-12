@@ -1,16 +1,16 @@
 __author__ = 'josip.lazic'
 
 from celery import Celery
+from django.conf import settings
+import pika
 
-app = Celery('tasks', broker='amqp://guest@localhost//')
+app = Celery('tasks', broker=settings.SMS_CELERY_URL)
 
 @app.task()
-def send_email(address):
-    print address
-    return address
-
-
-@app.task
-def add(x, y):
-    send_email.delay('josip@lazic.info')
-    return x + y
+def queue_message(message):
+    parameters = pika.URLParameters(settings.SMS_AMQP_URL)
+    connection = pika.BlockingConnection(parameters)
+    channel = connection.channel()
+    channel.queue_declare(settings.SMS_AMQP_QUEUE)
+    channel.basic_publish(exchange='', routing_key='messages', body=message.to_json())
+    connection.close()
