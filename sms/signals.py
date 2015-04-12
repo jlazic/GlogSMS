@@ -21,6 +21,6 @@ def message_post_save(sender, instance, created, **kwargs):
     if created and settings.SMS_AMQP_ENABLED:
         print "Sending AMQP message"
         try:
-            queue_message(instance).delay()
+            queue_message.delay(instance)
         except Exception, e:
             print e
