@@ -6,7 +6,12 @@ from django.conf import settings
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 
-app = Celery('project')
+app = Celery('project',
+             broker=settings.SMS_CELERY_URL,
+             backend=settings.SMS_CELERY_URL,
+             )
+
+
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
