@@ -24,7 +24,7 @@ def message_post_save(sender, instance, created, **kwargs):
             parameters = pika.URLParameters(settings.SMS_AMQP_URL)
             connection = pika.BlockingConnection(parameters)
             channel = connection.channel()
-            channel.queue_declare(queue='sms')
+            channel.queue_declare(settings.SMS_AMQP_QUEUE)
             channel.basic_publish(exchange='', routing_key='messages', body=instance.to_json())
             connection.close()
         except Exception, e:
