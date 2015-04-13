@@ -168,8 +168,6 @@ REST_FRAMEWORK = {
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-BROKER_URL = 'amqp://guest:guest@localhost//'
-
 from datetime import timedelta
 
 CELERYBEAT_SCHEDULE = {
