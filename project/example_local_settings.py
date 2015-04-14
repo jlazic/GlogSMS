@@ -15,10 +15,10 @@ SMS_AMQP_ENABLED = True
 SMS_AMQP_URL = "amqp://guest:guest@localhost/sms"
 SMS_AMQP_QUEUE = "messages"
 
-# Celery broker URL, can be the same as SMS_AMQL_URL
+# Celery broker URL. Can be the same as SMS_AMQL_URL
 BROKER_URL = "amqp://guest:guest@localhost/sms"
 
-# If true you must use passwords in phones
+# If True you must use passwords in phones
 SMS_USE_AUTH = True
 
 # Database settings

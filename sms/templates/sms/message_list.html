@@ -2,18 +2,18 @@
 {% block content %}
 <div class="container">
     <div class="row">
-    <h1>Popis poslanih poruka za korisnika {{ request.user.username }}</h1>
-    <a class="btn btn-primary" href="/">Početak</a>
+    <h1>List of sent messages for user {{ request.user.username }}</h1>
+    <a class="btn btn-primary" href="/">Home</a>
         <div class="col-lg-12">
         <table class="table table-striped">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Šalje</th>
-                  <th>Prima</th>
-                  <th>Poruka</th>
+                  <th>Sender</th>
+                  <th>Recipient</th>
+                  <th>Message</th>
                   <th>Status</th>
-                  <th>Poslano</th>
+                  <th>Date sent</th>
                 </tr>
               </thead>
               <tbody>
