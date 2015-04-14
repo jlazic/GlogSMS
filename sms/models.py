@@ -163,7 +163,7 @@ class Request(models.Model):
 
 class Phone(models.Model):
     """
-    Model za sve telefone
+    Model for mobile phones
     """
     model = models.CharField(max_length=128)
     number = models.CharField(max_length=32)

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 class Command(BaseCommand):
     args = ''
-    help = 'Archive SMS messages older than 24 hours'
+    help = 'Check for failed messages, and resend them'
 
     def handle(self, *args, **options):
         """
@@ -36,3 +36,5 @@ class Command(BaseCommand):
             alert_mesage.recipient = '0992492990'  # TODO: Stavio sam ovdje svoj mobitel, trebalo bi ovdje staviti neku varijablu
             alert_mesage.user = User.objects.get(pk=1)  # Postavi defaultno admin usera sa pk=1
             alert_mesage.save()
+
+            #TODO: Napraviti funkciju koja ce biti wrapper oko Mailer-a, tako da ne moram stalno inicijalizirati SMTP server...

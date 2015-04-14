@@ -11,7 +11,7 @@ from sms.tasks import queue_message
 def message_post_save(sender, instance, created, **kwargs):
     """
     Attach to Message post_save signal, and send message to RabbitMQ. Function will catch all exceptions and
-    continue. This is as must because we don't want missing RabbitMQ to break SMS sending
+    continue. This is a must because we don't want missing/broken RabbitMQ to break SMS sending
     :param sender:
     :param instance:
     :param created:
