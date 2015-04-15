@@ -1,0 +1,19 @@
+#Ubuntu: apt install libxml2-dev libxslt1-dev python-dev
+Django>=1.8,<1.8.999
+django-braces==1.4.0
+django-cors-headers==1.0.0
+django-extensions==1.5.2
+django-jsonview==0.4.3
+djangorestframework==3.1.1
+django-reversion==1.8.5
+gunicorn==19.3
+jdcal==1.0
+lxml==3.4.2
+openpyxl==2.1.5
+python-dateutil==2.4.0
+python-mimeparse==0.1.4
+six==1.9.0
+sqlparse==0.1.14
+defusedxml==0.4.1
+celery==3.1.7
+pika==0.9.14

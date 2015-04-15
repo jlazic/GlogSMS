@@ -1,0 +1,18 @@
+{% extends 'sms/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>Message ID: {{ object.id }}</h1>
+            <p>Sender: {{ object.sender }}</p>
+            <p>Recipient: {{ object.recipient }}</p>
+            <p>Message: {{ object.message }}</p>
+            <p>Status: {{ object.status }}</p>
+            <p>Date sent: {{ object.added }}</p>
+            <p>Date updated: {{ object.updated }}</p>
+            <a type="button" class="btn btn-primary" href="{% url 'message-list' %}">Back to outbox</a>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+{% endblock %}
