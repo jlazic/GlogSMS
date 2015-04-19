@@ -7,6 +7,12 @@ from celery import shared_task
 
 @shared_task
 def queue_message(message):
+    """
+    Connect to RabbitMQ and publish SMS message in JSON format to the queue.
+    From there mobile phones will pickup and send them.
+    :param message:
+    :return:
+    """
     print "Sending... {}".format(message)
     parameters = pika.URLParameters(settings.SMS_AMQP_URL)
     connection = pika.BlockingConnection(parameters)

@@ -75,15 +75,17 @@ def pool(request):
     :return:
     """
 
+    # We must allow HEAD verb in order for phones to being able to ping server
     if request.method == 'HEAD':
         return HttpResponse('OK')
 
+    # Deny any other verb except POST
     if request.method != 'POST':
         return HttpResponseNotAllowed('Only POST requests allowed here')
 
     """
-    Prvo spremi request koji je dosao u bazu. A nakon toga idemo dalje
-    Request spremamo pomocu ModulForma, tj. RequestForm objekta.
+    First, save incoming request to database via RequestForm. We save all incoming requests without discrimination
+    based on wrong passwords, missing settings,... yeah, this could bite me in the ass later on.
     """
     rf = RequestForm(request.POST)
     r = rf.save()
