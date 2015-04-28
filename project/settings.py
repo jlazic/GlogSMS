@@ -47,8 +47,9 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/admin/login'
 LOGOUT_URL = '/admin/logout'
 
-# Application definition
+EMAIL_SUBJECT_PREFIX = '[GlogSMS]'
 
+# Application definition
 INSTALLED_APPS = (
     'django_extensions',
     'django.contrib.admin',

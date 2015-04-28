@@ -1,20 +1,26 @@
+# -*- coding: utf-8 -*-
 __author__ = 'josip@lazic.info'
 
 
 from django.core.management.base import BaseCommand, CommandError
 from sms.models import Message, StatusLog
 from datetime import datetime, timedelta
-
+from django.core.mail import mail_admins
+from django.conf import settings
+from sms.tasks import queue_message
 
 class Command(BaseCommand):
+    """
+    Command is called through Celery Beat scheduler every hour
+    """
     args = ''
     help = 'Check for failed messages, and resend them'
 
     def handle(self, *args, **options):
         """
-        Hajmo vidjeti jel ima kakvih poruka koje su u stanju 'sent to phone', a da nisu updateane
-        u zadnjih sat vremena. Bi bile poruke koje telefon mozda nikada nije ni preuzeo, jer za njih ni ne salje
-        da su failale ili da su poslane. Uglavnom, takve poruke cemo slati ponovno
+        Check for messages with status 'sent to phone' that were not updated in last hour, and try to resend these
+        messages.
+        TODO: Maybe have some limit on resending, after 3 resend actions, cancel message.
         """
         try:
             failed_messages = Message.objects.filter(status='sent', updated__lte=datetime.now() - timedelta(hours=1))
@@ -25,16 +31,12 @@ class Command(BaseCommand):
                               phone_number='1234', message=message)
                 s.save()
                 message.save()
-        except Exception, err:
+                if settings.SMS_AMQP_ENABLED:
+                    # Send message to AMQP queue again. This could lead to one message being delivered multiple times.
+                    # TODO: Test this!
+                    queue_message.delay(message)
+        except Exception, e:
             """
-            Ako ulovis neki Exception, posalji poruku adminu da nesto nije OK
-            Ovo se nikada ne bi smjelo desiti
+            Send email to ADMINS, but continue to process failed_messages
             """
-            alert_mesage = Message()
-            alert_mesage.message = "Nesto nije OK sa slanjem SMS poruka: %s" % str(err)
-            alert_mesage.sender = 'Localhost'
-            alert_mesage.recipient = '0992492990'  # TODO: Stavio sam ovdje svoj mobitel, trebalo bi ovdje staviti neku varijablu
-            alert_mesage.user = User.objects.get(pk=1)  # Postavi defaultno admin usera sa pk=1
-            alert_mesage.save()
-
-            #TODO: Napraviti funkciju koja ce biti wrapper oko Mailer-a, tako da ne moram stalno inicijalizirati SMTP server...
+            mail_admins('Error while checking for failed messages', str(e))

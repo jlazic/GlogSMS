@@ -6,6 +6,9 @@ from sms.models import Message
 
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Django REST Framework serializer for message model
+    """
     user = serializers.StringRelatedField()
 
     class Meta:
