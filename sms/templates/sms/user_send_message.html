@@ -5,9 +5,10 @@
         <div class="col-lg-6">
             <h1>Send SMS message</h1>
             <p class="lead">
-                <a class="btn btn-primary" href="{% url 'message-list' %}">Send messages (outbox)</a>
+                <a class="btn btn-primary" href="{% url 'message-list' %}">Sent messages (outbox)</a>
             </p>
             <form role="form" action="" method="post">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="sender">Your name</label>
                     <input type="text" class="form-control" id="id_sender" name="sender" placeholder="Your name" value="{{ form.sender.value|default_if_none:"" }}">
